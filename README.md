@@ -2,6 +2,10 @@
 
 An MCP server that connects an LLM to the archives (since 1999) of [The Guardian](https://www.theguardian.com/), including the full text of all articles — more than 1.9 million of them. Useful for real-time headlines, journalism analysis, and historical research.
 
+<a href="https://glama.ai/mcp/servers/@jbenton/guardian-mcp-server">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@jbenton/guardian-mcp-server/badge" alt="guardian-mcp-server MCP server" />
+</a>
+
 ## Installation
 
 **A [Guardian Open Platform](https://open-platform.theguardian.com/) API key is required.** You can get one here: https://open-platform.theguardian.com/access/
