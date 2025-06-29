@@ -2,7 +2,7 @@
 
 An MCP server that connects an LLM to the archives (since 1999) of [The Guardian](https://www.theguardian.com/), including the full text of all articles — more than 1.9 million of them. Useful for real-time headlines, journalism analysis, and historical research.
 
-## **Installation**
+## Installation
 
 **A [Guardian Open Platform](https://open-platform.theguardian.com/) API key is required.** You can get one here: https://open-platform.theguardian.com/access/
 
@@ -28,9 +28,9 @@ npx guardian-mcp-server
 }
 ```
 
-## **Tool reference**
+## Tool reference
 
-#### **`guardian_search`**: search the archive for articles
+`guardian_search`: search the archive for articles
 
 Use the`detail_level` parameter to determine the size of the API response and optimize performance: `minimal` (headlines only), `standard` (headlines, summaries, and metadata), or `full` (all content, including full article text).
 
@@ -44,18 +44,18 @@ Use the`detail_level` parameter to determine the size of the API response and op
 }
 ```
 
-#### **`guardian_get_article`**: retrieve individual articles
+`guardian_get_article`: retrieve individual articles
 ```json
 {
   "article_id": "https://www.theguardian.com/politics/2024/dec/01/example", 
   "truncate": false  // full content by default
 }
 ```
-#### **`guardian_search_tags`**: search through The Guardian's 50,000-plus hand-assigned tags
+`guardian_search_tags`: search through The Guardian's 50,000-plus hand-assigned tags
 
-#### **`guardian_find_related`**: find articles similar to an article (via shared tags)
+`guardian_find_related`: find articles similar to an article (via shared tags)
 
-#### **`guardian_get_article_tags`**: returns tags assigned to any article
+`guardian_get_article_tags`: returns tags assigned to any article
 
 ```json
 {
@@ -63,9 +63,9 @@ Use the`detail_level` parameter to determine the size of the API response and op
 }
 ```
 
-#### **`guardian_lookback`**: historical search by date
+`guardian_lookback`: historical search by date
 
-#### **`guardian_content_timeline`**: analyze Guardian content on a particular topic over a defined period
+`guardian_content_timeline`: analyze Guardian content on a particular topic over a defined period
 
 ```json
 {
@@ -76,7 +76,7 @@ Use the`detail_level` parameter to determine the size of the API response and op
 }
 ```
 
-#### **`guardian_top_stories_by_date`**: estimates editorial importance; The Guardian's API doesn't natively return data to differentiate between Page 1 stories and inside briefs, and this tries to hack a ranking together
+`guardian_top_stories_by_date`: estimates editorial importance; The Guardian's API doesn't natively return data to differentiate between Page 1 stories and inside briefs, and this tries to hack a ranking together
 
 ```json
 {
@@ -85,7 +85,7 @@ Use the`detail_level` parameter to determine the size of the API response and op
 }
 ```
 
-#### **`guardian_topic_trends`**: compare multiple topics over time with correlation analysis and competitive rankings
+`guardian_topic_trends`: compare multiple topics over time with correlation analysis and competitive rankings
 
 ```json
 {
@@ -96,7 +96,7 @@ Use the`detail_level` parameter to determine the size of the API response and op
 }
 ```
 
-#### **`guardian_author_profile`**: generate profiles of Guardian journalists and what they cover
+`guardian_author_profile`: generate profiles of Guardian journalists and what they cover
 
 ```json
 {
@@ -105,17 +105,17 @@ Use the`detail_level` parameter to determine the size of the API response and op
 }
 ```
 
-#### **`guardian_longread`**: search The Long Read series, the paper's home for longform features
+`guardian_longread`: search The Long Read series, the paper's home for longform features
 
-#### **`guardian_browse_section`**: browse recent articles from specific sections
+`guardian_browse_section`: browse recent articles from specific sections
 
-#### **`guardian_get_sections`**: fetch all available Guardian sections
+`guardian_get_sections`: fetch all available Guardian sections
 
-#### **`guardian_search_by_length`**: filter articles by word count
+`guardian_search_by_length`: filter articles by word count
 
-#### **`guardian_search_by_author`**: search articles by byline
+`guardian_search_by_author`: search articles by byline
 
-#### **`guardian_recommend_longreads`**: get personalized Long Read recommendations based on interest
+`guardian_recommend_longreads`: get personalized Long Read recommendations based on interest
 
 ```json
 {
@@ -125,6 +125,6 @@ Use the`detail_level` parameter to determine the size of the API response and op
 }
 ```
 
-## **License**
+## License
 
 MIT license.
