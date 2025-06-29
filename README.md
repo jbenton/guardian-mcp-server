@@ -1,28 +1,19 @@
 # Guardian MCP Server
 
-An advanced Model Context Protocol (MCP) server providing comprehensive access to The Guardian newspaper's archive since 1999. This server transforms basic search into a full journalism research analysis platform.
+An MCP server that connects an LLM to the archives (since 1999) of [The Guardian](https://www.theguardian.com/), including the full text of all articles — more than 1.9 million of them. Useful for real-time headlines, journalism analysis, and historical research.
 
-## ✨ Features
+## **Installation**
 
-- **Complete Archive Access**: Search Guardian articles from 1999 to present
-- **Advanced Research Tools**: Timeline analysis, author profiling, topic trends
-- **Intelligent Content Discovery**: Context-aware recommendations and story prioritization
-- **Performance Optimized**: Multiple detail levels for fast browsing or deep research
-- **Full Content Access**: Complete article text without truncation
+**A [Guardian Open Platform](https://open-platform.theguardian.com/) API key is required.** You can get one here: https://open-platform.theguardian.com/access/
 
-## 🚀 Quick Start
+The Guardian offers generous API access for *non-commercial* use of the archives, including up to 1 call/second and 500 calls/day. (See the full [Terms & Conditions](https://www.theguardian.com/open-platform/terms-and-conditions). Commercial use requires a [different license](https://bonobo.capi.gutools.co.uk/register/commercial).) 
 
-### 1. Get a Guardian API Key
-Get your free API key from [The Guardian Open Platform](https://open-platform.theguardian.com/access/)
-
-### 2. Install and Run
+**To install:**
 ```bash
 npx guardian-mcp-server
 ```
 
-### 3. Configure with Claude Desktop
-Add to your Claude Desktop configuration:
-
+**Sample MCP client configuration:**
 ```json
 {
   "mcpServers": {
@@ -30,67 +21,110 @@ Add to your Claude Desktop configuration:
       "command": "npx",
       "args": ["guardian-mcp-server"],
       "env": {
-        "GUARDIAN_API_KEY": "your-api-key-here"
+        "GUARDIAN_API_KEY": "your-key-here"
       }
     }
   }
 }
 ```
 
-## 🛠️ Core Tools
+## **Tool reference**
 
-### Search & Discovery
-- `guardian_search` - Advanced article search with filtering
-- `guardian_get_article` - Full article retrieval (supports URLs)
-- `guardian_longread` - Access to Guardian's Long Read series
-- `guardian_browse_section` - Browse by section
-- `guardian_search_by_author` - Find articles by journalist
+#### **`guardian_search`**: search the archive for articles
 
-### Research & Analysis  
-- `guardian_content_timeline` - Track topic evolution over time
-- `guardian_author_profile` - Comprehensive journalist analysis
-- `guardian_topic_trends` - Compare multiple topics with correlations
-- `guardian_top_stories_by_date` - Intelligent story ranking
-- `guardian_recommend_longreads` - Context-aware recommendations
+Use the`detail_level` parameter to determine the size of the API response and optimize performance: `minimal` (headlines only), `standard` (headlines, summaries, and metadata), or `full` (all content, including full article text).
 
-### Utility Tools
-- `guardian_get_sections` - List all available sections
-- `guardian_search_tags` - Explore Guardian's 50,000+ tags
-- `guardian_find_related` - Discover related articles
-
-## 📊 What You Can Research
-
-- **Historical Analysis**: Major events with intelligent story prioritization
-- **Trend Investigation**: How topics evolved over months/years
-- **Journalist Expertise**: Author specializations and writing patterns  
-- **Content Discovery**: Personalized Long Read recommendations
-- **Comparative Studies**: Multi-topic correlation analysis
-
-## 🔧 Development
-
-```bash
-# Clone the repository
-git clone https://github.com/YOUR_USERNAME/guardian-mcp-server.git
-cd guardian-mcp-server
-
-# Install dependencies
-npm install
-
-# Build the project
-npm run build
-
-# Run locally
-npm start
+```json
+{
+  "query": "climate change",
+  "section": "environment", 
+  "detail_level": "minimal",
+  "from_date": "2024-01-01",
+  "order_by": "newest"
+}
 ```
 
-## 📄 License
+#### **`guardian_get_article`**: retrieve individual articles
+```json
+{
+  "article_id": "https://www.theguardian.com/politics/2024/dec/01/example", 
+  "truncate": false  // full content by default
+}
+```
+#### **`guardian_search_tags`**: search through The Guardian's 50,000-plus hand-assigned tags
 
-MIT License - see [LICENSE](LICENSE) file for details.
+#### **`guardian_find_related`**: find articles similar to an article (via shared tags)
 
-## 🤝 Contributing
+#### **`guardian_get_article_tags`**: returns tags assigned to any article
 
-Contributions welcome! Please read our contributing guidelines and submit pull requests.
+```json
+{
+  "article_id": "politics/2024/example"
+}
+```
 
-## 📚 Documentation
+#### **`guardian_lookback`**: historical search by date
 
-For detailed tool documentation and advanced usage, see [README_V2.md](README_V2.md).
+#### **`guardian_content_timeline`**: analyze Guardian content on a particular topic over a defined period
+
+```json
+{
+  "query": "artificial intelligence",
+  "from_date": "2024-01-01",
+  "to_date": "2024-06-30", 
+  "interval": "month"
+}
+```
+
+#### **`guardian_top_stories_by_date`**: estimates editorial importance; The Guardian's API doesn't natively return data to differentiate between Page 1 stories and inside briefs, and this tries to hack a ranking together
+
+```json
+{
+  "date": "2016-06-24",  // Brexit referendum day
+  "story_count": 5
+}
+```
+
+#### **`guardian_topic_trends`**: compare multiple topics over time with correlation analysis and competitive rankings
+
+```json
+{
+  "topics": ["artificial intelligence", "climate change", "brexit"],
+  "from_date": "2023-01-01",
+  "to_date": "2024-12-31",
+  "interval": "quarter"
+}
+```
+
+#### **`guardian_author_profile`**: generate profiles of Guardian journalists and what they cover
+
+```json
+{
+  "author": "George Monbiot",
+  "analysis_period": "2024"
+}
+```
+
+#### **`guardian_longread`**: search The Long Read series, the paper's home for longform features
+
+#### **`guardian_browse_section`**: browse recent articles from specific sections
+
+#### **`guardian_get_sections`**: fetch all available Guardian sections
+
+#### **`guardian_search_by_length`**: filter articles by word count
+
+#### **`guardian_search_by_author`**: search articles by byline
+
+#### **`guardian_recommend_longreads`**: get personalized Long Read recommendations based on interest
+
+```json
+{
+  "count": 3,
+  "context": "I'm researching technology, especially AI",
+  "topic_preference": "digital culture"
+}
+```
+
+## **License**
+
+MIT license.
